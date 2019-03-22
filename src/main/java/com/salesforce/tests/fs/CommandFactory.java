@@ -4,6 +4,7 @@ import com.salesforce.tests.fs.impl.CD;
 import com.salesforce.tests.fs.impl.LS;
 import com.salesforce.tests.fs.impl.MKDIR;
 import com.salesforce.tests.fs.impl.PWD;
+import com.salesforce.tests.fs.impl.QUIT;
 import com.salesforce.tests.fs.impl.TOUCH;
 
 public class CommandFactory {
@@ -20,8 +21,10 @@ public class CommandFactory {
 			return new MKDIR();
 		} else if("TOUCH".equalsIgnoreCase(command)){
 			return new TOUCH();
+		} else if("QUIT".equalsIgnoreCase(command)){
+			return new QUIT();
 		} else {
-			throw new Exception("Invalid Command");
+			throw new Exception("Unknown Command " + command);
 		}
 	}
 }

@@ -1,11 +1,12 @@
 package com.salesforce.tests.fs.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileNode {
 	
 	private String name;
-	private List<FileNode> children;
+	private List<FileNode> children = new ArrayList<FileNode>();
 	private FileNode parent;
 	private Boolean isDirectory;
 	

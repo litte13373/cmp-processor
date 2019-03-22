@@ -6,10 +6,12 @@ import java.util.List;
 import com.salesforce.tests.fs.Command;
 import com.salesforce.tests.fs.domain.CommandInput;
 import com.salesforce.tests.fs.domain.FileNode;
+import com.salesforce.tests.fs.domain.FileTree;
 
 public class PWD implements Command{
 
-	public String execute(FileNode fileNode, CommandInput commandInput) {
+	public String execute(FileTree fileTree, CommandInput commandInput) {
+		FileNode fileNode = fileTree.getFileNode();
 		
 		StringBuilder sb = new StringBuilder();
 		FileNode parentFileInfo = fileNode.getParent();
@@ -20,13 +22,13 @@ public class PWD implements Command{
 		} else {
 			filePath.add(fileNode.getName());
 			
-			while (parentFileInfo != null){
+			while (parentFileInfo != null && parentFileInfo.getName()!=null){
 				filePath.add(parentFileInfo.getName());
 				parentFileInfo = parentFileInfo.getParent();
 			}
 			for (int i = filePath.size(); i>0; i-- ){
-				sb.append("/");
-				sb.append(filePath.get(i));
+				sb.append("\\");
+				sb.append(filePath.get(i-1));
 			}
 			
 			return sb.toString();

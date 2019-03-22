@@ -3,20 +3,22 @@ package com.salesforce.tests.fs.impl;
 import com.salesforce.tests.fs.Command;
 import com.salesforce.tests.fs.domain.CommandInput;
 import com.salesforce.tests.fs.domain.FileNode;
+import com.salesforce.tests.fs.domain.FileTree;
 
 public class MKDIR implements Command {
 
-	public String execute(FileNode fileNode, CommandInput commandInput) {
-		if(commandInput.getCommandParameter() != null){
-			FileNode childFileNode = new FileNode();
-			childFileNode.setName(commandInput.getCommandParameter());
-			childFileNode.setParent(fileNode);
-			childFileNode.setIsDirectory(true);
-			fileNode.getChildren().add(fileNode);
-			return commandInput.getCommandParameter() + " Created";
-		} else {
+	public String execute(FileTree fileTree, CommandInput commandInput) {
+		
+		if(commandInput.getCommandParameter() == null){
 			return "Missing Parameter";
 		}
+			
+		if (fileTree.childNameExists(commandInput.getCommandParameter())){
+			return commandInput.getCommandParameter() + " already exists";
+		}
+		
+		fileTree.createNode(commandInput.getCommandParameter(), true);
+		return commandInput.getCommandParameter() + " Created";
 	}
 
 }
